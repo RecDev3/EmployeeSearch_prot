@@ -1,0 +1,29 @@
+h1 従業員一覧
+
+= link_to '新規登録', new_user_path, class: 'btn btn-primary'
+
+.mb-3
+table.table.table-hover
+  thead.thead-default
+    tr
+      th= User.human_attribute_name(:emproyee_id)
+      th= User.human_attribute_name(:name)
+      th= User.human_attribute_name(:dept1)
+      th= User.human_attribute_name(:dept2)
+      th= User.human_attribute_name(:dept3)
+      th= User.human_attribute_name(:email)
+      th= User.human_attribute_name(:created_at)
+      th
+    tbody
+      - @users.each do |user|
+        tr
+          td= user.emproyee_id
+          td= link_to user.name, user_path(user)
+          td= user.dept1
+          td= user.dept2
+          td= user.dept3
+          td= user.email
+          td= user.created_at
+          td
+            = link_to '編集', edit_user_path(user), class: 'btn btn-primary mr-3'
+            = link_to '削除', user, method: :delete, data: { confirm: "ユーザ「#{user.name}」を削除します。よろしいですか？" }, class: 'btn btn-danger'

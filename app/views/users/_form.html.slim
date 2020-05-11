@@ -1,0 +1,25 @@
+- if user.errors.present?
+  ul#error_explanation
+    - user.errors.full_messages.each do |message|
+      li = message
+
+= form_with model: user, local: true do |f|
+  .form-group
+    = f.label :emproyee_id
+    = f.text_field :emproyee_id, class: 'form-control', id: 'emproyee_id_name'
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control', id: 'user_name'
+  .form-group
+    = f.label :dept1
+    = f.text_field :dept1, class: 'form-control', id: 'dept1_name'
+  .form-group
+    = f.label :dept2
+    = f.text_field :dept2, class: 'form-control', id: 'dept2_name'
+    .form-group
+      = f.label :dept3
+      = f.text_field :dept3, class: 'form-control', id: 'dept3_name'
+  .form-group
+    = f.label :email
+    = f.text_field :email, class: 'form-control', id: 'user_email'
+  = f.submit nil, class: 'btn btn-primary'
