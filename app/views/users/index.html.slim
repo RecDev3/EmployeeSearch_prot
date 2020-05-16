@@ -1,8 +1,23 @@
 h1 従業員一覧
 
-= link_to '新規登録', new_user_path, class: 'btn btn-primary'
+= search_form_for @q, class: 'mb-5' do |f|
+  .form-group.row
+    = f.label :name, "名称", class: 'col-sm-2 col-form-label1'
+    .col-sm-10
+      = f.search_field :name_cont, class: 'form-control'
+  .form-group.row
+    = f.label :name, "所属", class: 'col-sm-2 col-form-label1'
+    .col-sm-10
+      = f.search_field :dept1_cont, class: 'form-control'
+  .form-group
+    = f.submit class: 'btn btn-outline-primary'
+
+= link_to '新規登録', new_user_path, class: 'btn btn-primary mb-3'
 
 .mb-3
+  = paginate @users
+  = page_entries_info @users
+
 table.table.table-hover
   thead.thead-default
     tr

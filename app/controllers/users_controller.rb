@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+
   def index
-    @users = User.all
+    @q = User.ransack(params[:q])
+    @users = @q.result(distinct: true).page(params[:page])
+    # @users = User.all.sort_by_name
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def new
@@ -22,17 +25,14 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     @user.update!(user_params)
     redirect_to users_url, notice: "ユーザ「#{@user.name}」を更新しました。"
   end
 
   def destroy
-    user = User.find(params[:id])
     user.destroy
     redirect_to users_url, notice: "ユーザ「#{user.name}」を削除しました。"
   end
@@ -41,5 +41,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:emproyee_id, :name, :dept1, :dept2, :dept3, :email)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end
