@@ -33,8 +33,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user.destroy
-    redirect_to users_url, notice: "ユーザ「#{user.name}」を削除しました。"
+    @user.destroy
+    redirect_to users_url, notice: "ユーザ「#{@user.name}」を削除しました。"
   end
 
   private
