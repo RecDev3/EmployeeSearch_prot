@@ -2,13 +2,15 @@ h1 従業員一覧
 
 = search_form_for @q, class: 'mb-5' do |f|
   .form-group.row
-    = f.label :name, "名称", class: 'col-sm-2 col-form-label1'
-    .col-sm-10
+    = f.label :name, "名前", class: 'col-sm-2 col-form-label1'
+    .col-sm-7
       = f.search_field :name_cont, class: 'form-control'
+
   .form-group.row
-    = f.label :name, "所属", class: 'col-sm-2 col-form-label1'
-    .col-sm-10
-      = f.search_field :dept1_cont, class: 'form-control'
+    = f.label :name, "部門", class: 'col-sm-2 col-form-label1'
+    .col-sm-7
+      = f.collection_select :dept1_cont, User.all, :dept1, :dept1, {prompt: "選択して下さい"}, class: 'form-control'
+
   .form-group
     = f.submit class: 'btn btn-outline-primary'
 
@@ -34,7 +36,7 @@ table.table.table-hover
       - @users.each do |user|
         tr
           td= user.emproyee_id
-          td= image_tag user.image.variant(resize_to_fit: [70,100], autorot: true, saver: { strip: true, quality: 60 }) if user.image.attached?
+          td= image_tag user.image.variant(resize_to_fit: [70,100], autorot: true, saver: { strip: true, quality: 60 } ) if user.image.attached?
           td= link_to user.name, user_path(user)
           td= user.dept1
           td= user.dept2
@@ -44,3 +46,7 @@ table.table.table-hover
           td
             = link_to '編集', edit_user_path(user), class: 'btn btn-primary mr-3'
             = link_to '削除', user, method: :delete, data: { confirm: "ユーザ「#{user.name}」を削除します。よろしいですか？" }, class: 'btn btn-danger'
+
+.mb-3
+  = paginate @users
+  = page_entries_info @users

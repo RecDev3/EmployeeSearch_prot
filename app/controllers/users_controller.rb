@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def index
     @q = User.ransack(params[:q])
     @users = @q.result(distinct: true).page(params[:page])
-    # @users = User.all.sort_by_name
+    User.all.sort_by_name
   end
 
   def show
