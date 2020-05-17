@@ -13,6 +13,7 @@ ja:
       user:
         id: ID
         name: 名前
+        image: 画像
         emproyee_id: 社員番号
         dept1: 部門
         dept2: 部署

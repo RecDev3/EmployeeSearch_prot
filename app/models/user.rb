@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_one_attached :image
   validates :name, presence: true
   validates :emproyee_id, presence: true, uniqueness: true,
             length: { is: 5 }, numericality: { only_integer: true }
