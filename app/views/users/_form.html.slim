@@ -12,6 +12,8 @@
     = f.text_field :name, class: 'form-control', id: 'user_name'
   .form-group
     = f.label :image
+    br
+    = image_tag @user.image.variant(resize_to_fit: [240,300], autorot: true, saver: { strip: true, quality: 60 }) if @user.image.attached?
     = f.file_field :image, class: 'form-control'
   .form-group
     = f.label :dept1

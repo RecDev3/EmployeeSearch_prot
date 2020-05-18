@@ -1,15 +1,11 @@
-h1 従業員一覧
+h2 従業員リスト
 
 = search_form_for @q, class: 'mb-5' do |f|
   .form-group.row
-    = f.label :name, "名前", class: 'col-sm-2 col-form-label1'
-    .col-sm-7
-      = f.search_field :name_cont, class: 'form-control'
-
-  .form-group.row
-    = f.label :name, "部門", class: 'col-sm-2 col-form-label1'
-    .col-sm-7
-      = f.collection_select :dept1_cont, User.all, :dept1, :dept1, {prompt: "選択して下さい"}, class: 'form-control'
+    .col-sm-3
+      = f.search_field :name_cont, class: 'form-control', :placeholder => '名前'
+    .col-sm-3
+      = f.collection_select :dept1_cont, User.all, :dept1, :dept1, {prompt: "部門名を選択"}, class: 'form-control'
 
   .form-group
     = f.submit class: 'btn btn-outline-primary'
