@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @q = User.ransack(params[:q])
+    # FIXME 名前順にソートする
     @users = @q.result(distinct: true).page(params[:page])
   end
 
