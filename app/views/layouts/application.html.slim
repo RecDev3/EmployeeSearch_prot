@@ -15,6 +15,8 @@ html
       .navbar-brand
          = link_to users_path do
            = image_tag 'COMPANY_LOGO.png', alt: 'ASearch', width: '200px', height: '50px'
+      .h4 従業員検索システム
+  hr
     .container
       - if flash.notice.present?
         .alert.alert-success= flash.notice

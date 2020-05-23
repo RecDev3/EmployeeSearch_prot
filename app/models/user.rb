@@ -7,7 +7,7 @@ class User < ApplicationRecord
   scope :sort_by_name, -> { order(:name) }
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[name email dept1]
+    %w[name email dept1 dept2 dept3 location_name position_name]
   end
 
   def self.ransackable_associations(auth_object = nil)

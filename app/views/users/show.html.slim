@@ -1,18 +1,18 @@
-h1 ユーザの詳細
+h4 ユーザの詳細
 
 .nav.justify-content-end
   = link_to '一覧', users_path, class: 'nav-link'
 table.table.table-hover
   tbody
     tr
-      th= User.human_attribute_name(:id)
+      th= User.human_attribute_name(:emproyee_id)
       td= @user.emproyee_id
     tr
       th= User.human_attribute_name(:name)
       td= @user.name
     tr
       th= User.human_attribute_name(:image)
-      td= image_tag @user.image.variant(resize_to_fit: [240,300], autorot: true, saver: { strip: true, quality: 60 }) if @user.image.attached?
+      td= image_tag @user.image.variant(resize_to_fit: [140,200], autorot: true, saver: { strip: true, quality: 60 }) if @user.image.attached?
     tr
       th= User.human_attribute_name(:dept1)
       td= @user.dept1
@@ -22,6 +22,12 @@ table.table.table-hover
     tr
       th= User.human_attribute_name(:dept3)
       td= @user.dept3
+    tr
+      th= User.human_attribute_name('役職')
+      td= @user.position_name
+    tr
+      th= User.human_attribute_name('内線番号')
+      td= @user.tel_extention
     tr
       th= User.human_attribute_name(:email)
       td= @user.email
