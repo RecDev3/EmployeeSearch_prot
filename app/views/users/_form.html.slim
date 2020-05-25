@@ -16,6 +16,9 @@
     = image_tag @user.image.variant(resize_to_fit: [140,200], autorot: true, saver: { strip: true, quality: 60 }) if @user.image.attached?
     = f.file_field :image, class: 'form-control'
   .form-group
+    = f.label :location_name
+    = f.text_field :location_name, class: 'form-control', id: 'location_name'
+  .form-group
     = f.label :dept1
     = f.text_field :dept1, class: 'form-control', id: 'dept1_name'
   .form-group
@@ -28,9 +31,15 @@
     = f.label '役職'
     = f.text_field :position_name, class: 'form-control', id: 'position_name'
   .form-group
-    = f.label '内線番号'
+    = f.label '内線'
     = f.text_field :tel_extention, class: 'form-control', id: 'user_tel_extention'
-    .form-group
+  .form-group
+    = f.label '外線'
+    = f.text_field :tel_outside, class: 'form-control', id: 'user_tel_outside'
+  .form-group
+    = f.label '携帯'
+    = f.text_field :tel_mobile, class: 'form-control', id: 'user_tel_mobile'
+  .form-group
     = f.label :email
     = f.text_field :email, class: 'form-control', id: 'user_email'
   = f.submit nil, class: 'btn btn-primary'

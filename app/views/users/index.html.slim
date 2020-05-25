@@ -4,6 +4,8 @@
       / Attributes may be chained. Search multiple attributes for one value...
       = f.search_field :name_or_email_or_dept1_or_dept2_or_dept3_or_location_name_or_position_name_cont_any, class: 'form-control', :placeholder => '検索キーワード'
     .col-sm-3
+      = f.collection_select :location_name_cont, User.all, :location_name, :location_name, {prompt: "勤務地を選択"}, class: 'form-control'
+    .col-sm-3
       = f.collection_select :dept1_cont, User.all, :dept1, :dept1, {prompt: "部門名を選択"}, class: 'form-control'
 
   .form-group
@@ -18,20 +20,22 @@
 table.table.table-hover
   thead.thead-default
     tr
-      th= User.human_attribute_name(:image)
-      th= User.human_attribute_name(:name)
+      th= User.human_attribute_name('画像')
+      th= User.human_attribute_name('氏名')
       th= User.human_attribute_name('勤務地')
-      th= User.human_attribute_name('所属')
+      th= User.human_attribute_name('部署')
+      th= User.human_attribute_name('チーム')
       th= User.human_attribute_name('役職')
       th= User.human_attribute_name('連絡先')
-      th
+      th=
     tbody
       - @users.each do |user|
         tr
-          td= image_tag user.image.variant(resize_to_fit: [60,90], autorot: true, saver: { strip: true, quality: 60 } ) if user.image.attached?
+          td= image_tag user.image.variant(resize_to_fit: [50,50], autorot: true, saver: { strip: true, quality: 60 } ) if user.image.attached?
           td= link_to user.name, user_path(user)
           td= user.location_name
-          td= user.dept1 + ' ' + user.dept2 + ' ' + user.dept3
+          td= user.dept2
+          td= user.dept3
           td= user.position_name
           td= user.tel_extention
           td

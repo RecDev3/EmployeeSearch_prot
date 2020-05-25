@@ -26,8 +26,14 @@ table.table.table-hover
       th= User.human_attribute_name('役職')
       td= @user.position_name
     tr
-      th= User.human_attribute_name('内線番号')
+      th= User.human_attribute_name('内線')
       td= @user.tel_extention
+    tr
+      th= User.human_attribute_name('外線')
+      td= @user.tel_outside
+    tr
+      th= User.human_attribute_name('携帯')
+      td= @user.tel_mobile
     tr
       th= User.human_attribute_name(:email)
       td= @user.email

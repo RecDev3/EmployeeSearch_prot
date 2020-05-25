@@ -28,6 +28,9 @@ class UsersController < ApplicationController
   end
 
   def update
+    # FIXME: prefix「0」が無視されてしまう問題をformat関数を使って解決せよ
+    # @q = User.ransack(params[:q])
+    # @user = User.find_by(tel_extention).format('%0d', "#{@user.tel_extention}")
     @user.update!(user_params)
     redirect_to users_url, notice: "ユーザ「#{@user.name}」を更新しました。"
   end
@@ -40,7 +43,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:emproyee_id, :name, :image, :dept1, :dept2, :dept3, :position_name, :email, :tel_extention)
+    params.require(:user).permit(:emproyee_id, :name, :image, :dept1, :dept2, :dept3, :position_name, :tel_extention, :tel_outside, :tel_mobile, :email, :location_name)
   end
 
   def set_user
