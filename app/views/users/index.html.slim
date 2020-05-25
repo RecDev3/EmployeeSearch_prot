@@ -20,13 +20,13 @@
 table.table.table-hover
   thead.thead-default
     tr
-      th= User.human_attribute_name('画像')
-      th= User.human_attribute_name('氏名')
-      th= User.human_attribute_name('勤務地')
-      th= User.human_attribute_name('部署')
-      th= User.human_attribute_name('チーム')
-      th= User.human_attribute_name('役職')
-      th= User.human_attribute_name('連絡先')
+      th= User.human_attribute_name(:image)
+      th= User.human_attribute_name(:name)
+      th= User.human_attribute_name(:location_name)
+      th= User.human_attribute_name(:dept2)
+      th= User.human_attribute_name(:dept3)
+      th= User.human_attribute_name(:location_name)
+      th= User.human_attribute_name(:contact_info)
       th=
     tbody
       - @users.each do |user|

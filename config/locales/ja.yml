@@ -15,9 +15,11 @@ ja:
         name: 名前
         image: 画像
         emproyee_id: 社員番号
+        location_name: 勤務地
         dept1: 部門
         dept2: 部署
         dept3: チーム
+        contact_info: 連絡先
         email: メールアドレス
         description: 詳しい説明
         created_at: 登録日時
@@ -221,7 +223,6 @@ ja:
       short: "%m/%d %H:%M"
     pm: 午後
 
-ja:
   faker:
     address:
       postcode: ["###-####"]
