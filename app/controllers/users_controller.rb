@@ -2,8 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @q = User.ransack(params[:q])
-    # FIXME 名前順にソートする
+    @q = User.order(name: :asc).ransack(params[:q])
     @users = @q.result(distinct: true).page(params[:page])
   end
 
