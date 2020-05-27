@@ -3,6 +3,8 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :emproyee_id, presence: true, uniqueness: true,
             length: { is: 5 }, numericality: { only_integer: true }
+  validates :email, presence: true, "valid_email_2/email": true,
+            uniqueness: { case_sensitive: false }
 
   scope :sort_by_name, -> { order(:name) }
 
