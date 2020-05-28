@@ -2,8 +2,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    # FIXME: name_kanaでソートするよう追々修正
-    @q = User.order(name: :asc).ransack(params[:q])
+    # FIXME: あとで「ふりがな」カラムを追加したらこれもソートに含めるよう修正
+    @q = User.order(location_name: :asc, name: :asc, dept1: :asc, dept2: :asc, dept3: :asc).ransack(params[:q])
     @users = @q.result(distinct: true).page(params[:page])
   end
 

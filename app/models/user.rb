@@ -5,7 +5,8 @@ class User < ApplicationRecord
             length: { is: 5 }, numericality: { only_integer: true }
   validates :email, presence: true, "valid_email_2/email": true,
             uniqueness: { case_sensitive: false }
-
+  validates :tel_extention, length: { maximum: 5 }, numericality: { only_integer: true }
+  validates :tel_outside, numericality: { only_integer: true }
   scope :sort_by_name, -> { order(:name) }
 
   def self.ransackable_attributes(auth_object = nil)
