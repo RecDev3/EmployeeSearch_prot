@@ -1,14 +1,4 @@
-= search_form_for @q, class: 'mb-2' do |f|
-  .form-group.row
-    .col-sm-3
-      / Attributes may be chained. Search multiple attributes for one value...
-      = f.search_field :name_or_email_or_dept1_or_dept2_or_dept3_or_location_name_or_position_name_cont_any, class: 'form-control', :placeholder => 'キーワード'
-    .col-sm-2
-      = f.collection_select :location_name_cont, User.select(:location_name).distinct.order(location_name: "ASC"), :location_name, :location_name, {prompt: "勤務地"}, include_blank: true, class: 'form-control'
-    .col-sm-2
-      = f.collection_select :dept1_cont, User.select(:dept1).distinct.order(:dept1), :dept1, :dept1, {prompt: "部門"}, include_blank: true, class: 'form-control'
-    .col-sm-2
-      = f.submit class: 'btn btn-outline-primary'
+
 = link_to '新規登録', new_user_path, class: 'btn btn-primary mb-3'
 
 .mb-3

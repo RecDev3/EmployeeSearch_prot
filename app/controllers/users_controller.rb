@@ -1,10 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_ransack
 
   def index
-    # FIXME: あとで「ふりがな」カラムを追加したらこれもソートに含めるよう修正
-    @q = User.order(location_name: :asc, name: :asc, dept1: :asc, dept2: :asc, dept3: :asc).ransack(params[:q])
-    @users = @q.result(distinct: true).page(params[:page])
   end
 
   def show
@@ -48,5 +46,11 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def set_ransack
+    # FIXME: あとで「ふりがな」カラムを追加したらこれもソートに含めるよう修正
+    @q = User.order(location_name: :asc, name: :asc, dept1: :asc, dept2: :asc, dept3: :asc).ransack(params[:q])
+    @users = @q.result(distinct: true).page(params[:page])
   end
 end
