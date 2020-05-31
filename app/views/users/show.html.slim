@@ -12,7 +12,7 @@ table.table.table-hover
       td= @user.name
     tr
       th= User.human_attribute_name(:image)
-      td= image_tag @user.image.variant(resize_to_fit: [140,200], autorot: true, saver: { strip: true, quality: 60 }) if @user.image.attached?
+      td= image_tag @user.image.variant(resize_to_fit: [150,150], autorot: true, saver: { strip: true, quality: 60 }) if @user.image.attached?
     tr
       th= User.human_attribute_name(:dept1)
       td= @user.dept1
@@ -23,16 +23,16 @@ table.table.table-hover
       th= User.human_attribute_name(:dept3)
       td= @user.dept3
     tr
-      th= User.human_attribute_name('役職')
+      th= User.human_attribute_name(:position_name)
       td= @user.position_name
     tr
-      th= User.human_attribute_name('内線')
+      th= User.human_attribute_name(:tel_extention)
       td= @user.tel_extention
     tr
-      th= User.human_attribute_name('外線')
+      th= User.human_attribute_name(:tel_outside)
       td= @user.tel_outside
     tr
-      th= User.human_attribute_name('携帯')
+      th= User.human_attribute_name(:tel_mobile)
       td= @user.tel_mobile
     tr
       th= User.human_attribute_name(:email)
@@ -44,5 +44,5 @@ table.table.table-hover
       th= User.human_attribute_name(:updated_at)
       td= @user.updated_at
 
-= link_to '編集', edit_user_path, class: 'btn btn-primary mr-3'
-= link_to '削除', @user, method: :delete, data: {confirm: "ユーザ「#{@user.name}」を削除します。よろしいですか？"}, class: 'btn btn-danger'
+= link_to '', edit_user_path, class: 'fa fa-wrench mr-3 fa-2x fa-border'
+= link_to '', @user, method: :delete, data: { confirm: "ユーザ「#{@user.name}」を削除します。よろしいですか？" }, class: 'fa fa-trash fa-2x fa-border'

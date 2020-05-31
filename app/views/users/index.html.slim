@@ -19,7 +19,7 @@ table.table.table-hover
     tbody
       - @users.each do |user|
         tr
-          td= image_tag user.image.variant(resize_to_fit: [50,50], autorot: true, saver: { strip: true, quality: 60 } ) if user.image.attached?
+          td= link_to (image_tag user.image.variant(resize_to_fit: [50,50], autorot: true, saver: { strip: true, quality: 60 } )), user_path(user) if user.image.attached?
           td= link_to user.name, user_path(user)
           td= user.location_name
           td= user.dept2
@@ -27,8 +27,8 @@ table.table.table-hover
           td= user.position_name
           td= user.tel_extention
           td
-            = link_to '編集', edit_user_path(user), class: 'btn btn-primary mr-3'
-            = link_to '削除', user, method: :delete, data: { confirm: "ユーザ「#{user.name}」を削除します。よろしいですか？" }, class: 'btn btn-danger'
+            = link_to '', edit_user_path(user),  class: 'fa fa-wrench mr-3 fa-lg fa-border'
+            = link_to '', user, method: :delete, data: { confirm: "ユーザ「#{user.name}」を削除します。よろしいですか？" }, class: 'fa fa-trash trash_red fa-lg fa-border'
 
 .mb-3
   = paginate @users
