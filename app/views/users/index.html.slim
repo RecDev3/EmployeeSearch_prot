@@ -9,7 +9,6 @@
       = f.collection_select :dept1_cont, User.select(:dept1).distinct.order(:dept1), :dept1, :dept1, {prompt: "部門"}, include_blank: true, class: 'form-control'
     .col-sm-2
       = f.submit class: 'btn btn-outline-primary'
-hr
 = link_to '新規登録', new_user_path, class: 'btn btn-primary mb-3'
 
 .mb-3

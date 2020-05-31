@@ -11,11 +11,11 @@ html
     meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
 
   body
-    .app-title.navbar.navbar-expand-md.navbar-light.bg-light
+    .app-title.navbar.navbar-expand-md.navbar-light.bg-light.border-bottom class='sticky-top'
       .navbar-brand
         = link_to users_path do
           = image_tag 'COMPANY_LOGO.png', alt: 'ASearch', width: '150px', height: '35px'
-        .h6 従業員検索システム
+        .h6.text-center.border-top 従業員検索システム
 
     .container
       - if flash.notice.present?
