@@ -1,5 +1,5 @@
 
-= link_to '新規登録', new_user_path, class: 'btn btn-primary mb-3'
+= link_to '従業員登録', new_user_path, class: 'btn btn-primary mb-3'
 
 .mb-3
   = paginate @users
@@ -31,5 +31,6 @@ table.table.table-hover
             = link_to '', user, method: :delete, data: { confirm: "ユーザ「#{user.name}」を削除します。よろしいですか？" }, class: 'fa fa-trash trash_red fa-lg fa-border'
 
 .mb-3
+  = link_to 'Export', users_path(format: :csv), class: 'btn btn-primary mb-3'
   = paginate @users
   = page_entries_info @users

@@ -3,6 +3,10 @@ class UsersController < ApplicationController
   before_action :set_ransack
 
   def index
+    respond_to do |format|
+      format.html
+      format.csv { send_data @users.generate_csv, filename: "users-#{Time.zone.now.strftime('%Y%m%d%S')}.csv" }
+    end
   end
 
   def show
@@ -41,7 +45,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:emproyee_id, :name, :image, :dept1, :dept2, :dept3, :position_name, :tel_extention, :tel_outside, :tel_mobile, :email, :location_name)
+    params.require(:user).permit(:emproyee_id, :name, :name_kana, :image, :dept1, :dept2, :dept3, :position_name, :tel_extention, :tel_outside, :tel_mobile, :email, :location_name)
   end
 
   def set_user
@@ -50,7 +54,7 @@ class UsersController < ApplicationController
 
   def set_ransack
     # FIXME: あとで「ふりがな」カラムを追加したらこれもソートに含めるよう修正
-    @q = User.order(location_name: :asc, name: :asc, dept1: :asc, dept2: :asc, dept3: :asc).ransack(params[:q])
+    @q = User.order(location_name: :asc, dept1: :asc, dept2: :asc, dept3: :asc, name_kana: :asc, name: :asc ).ransack(params[:q])
     @users = @q.result(distinct: true).page(params[:page])
   end
 end

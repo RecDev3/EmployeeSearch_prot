@@ -11,6 +11,9 @@ table.table.table-hover
       th= User.human_attribute_name(:name)
       td= @user.name
     tr
+      th= User.human_attribute_name(:name_kana)
+      td= @user.name_kana
+    tr
       th= User.human_attribute_name(:image)
       td= image_tag @user.image.variant(resize_to_fit: [150,150], autorot: true, saver: { strip: true, quality: 60 }) if @user.image.attached?
     tr

@@ -11,6 +11,9 @@
     = f.label :name
     = f.text_field :name, class: 'form-control', id: 'user_name'
   .form-group
+    = f.label :name_kana
+    = f.text_field :name_kana, class: 'form-control', id: 'user_name_kana'
+  .form-group
     = f.label :image
     br
     = image_tag @user.image.variant(resize_to_fit: [140,200], autorot: true, saver: { strip: true, quality: 60 }) if @user.image.attached?
