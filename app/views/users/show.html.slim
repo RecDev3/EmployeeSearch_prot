@@ -2,7 +2,7 @@ h4 ユーザの詳細
 
 .nav.justify-content-end
   = link_to '一覧', users_path, class: 'nav-link'
-table.table.table-hover
+table.table.table-hover.table-sm
   tbody
     tr
       th= User.human_attribute_name(:emproyee_id)
@@ -15,7 +15,7 @@ table.table.table-hover
       td= @user.name_kana
     tr
       th= User.human_attribute_name(:image)
-      td= image_tag @user.image.variant(resize_to_fit: [150,150], autorot: true, saver: { strip: true, quality: 60 }) if @user.image.attached?
+      td= image_tag @user.image.variant(resize_to_fit: [150,150], autorot: true, saver: { strip: true, quality: 60 }), class: 'rounded-circle' if @user.image.attached?
     tr
       th= User.human_attribute_name(:dept1)
       td= @user.dept1
@@ -47,5 +47,5 @@ table.table.table-hover
       th= User.human_attribute_name(:updated_at)
       td= @user.updated_at
 
-= link_to '', edit_user_path, class: 'fa fa-wrench mr-3 fa-2x fa-border'
+= link_to '', edit_user_path, class: 'fa fa-edit mr-2 fa-2x fa-border'
 = link_to '', @user, method: :delete, data: { confirm: "ユーザ「#{@user.name}」を削除します。よろしいですか？" }, class: 'fa fa-trash fa-2x fa-border'

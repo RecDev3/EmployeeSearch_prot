@@ -1,11 +1,11 @@
 
 = link_to '従業員登録', new_user_path, class: 'btn btn-primary mb-3'
 
-.mb-3
+.mb-4
   = paginate @users
   = page_entries_info @users
 
-table.table.table-hover
+table.table.table-hover.table-sm.table-responsive-sm
   thead.thead-default
     tr
       th= User.human_attribute_name(:image)
@@ -15,11 +15,11 @@ table.table.table-hover
       th= User.human_attribute_name(:dept3)
       th= User.human_attribute_name(:position_name)
       th= User.human_attribute_name(:contact_info)
-      th=
+      th= User.human_attribute_name('管理')
     tbody
       - @users.each do |user|
         tr
-          td= link_to (image_tag user.image.variant(resize_to_fit: [50,50], autorot: true, saver: { strip: true, quality: 60 } )), user_path(user) if user.image.attached?
+          td= link_to (image_tag user.image.variant(resize_to_fit: [50,50], autorot: true, saver: { strip: true, quality: 60 } ), class: 'rounded-circle'), user_path(user) if user.image.attached?
           td= link_to user.name, user_path(user)
           td= user.location_name
           td= user.dept2
@@ -27,10 +27,14 @@ table.table.table-hover
           td= user.position_name
           td= user.tel_extention
           td
-            = link_to '', edit_user_path(user),  class: 'fa fa-wrench mr-3 fa-lg fa-border'
+            = link_to '', edit_user_path(user),  class: 'fa fa-edit mr-3 fa-lg fa-border'
             = link_to '', user, method: :delete, data: { confirm: "ユーザ「#{user.name}」を削除します。よろしいですか？" }, class: 'fa fa-trash trash_red fa-lg fa-border'
 
 .mb-3
-  = link_to 'Export', users_path(format: :csv), class: 'btn btn-primary mb-3'
   = paginate @users
   = page_entries_info @users
+
+= link_to 'CSV出力', users_path(format: :csv), class: 'btn btn-primary mb-3'
+= form_tag import_users_path, multipart: true, class: 'mb-3' do
+  = file_field_tag :file
+  = submit_tag 'CSV取り込み', class: 'btn btn-primary'

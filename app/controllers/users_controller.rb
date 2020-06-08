@@ -32,14 +32,22 @@ class UsersController < ApplicationController
   def update
     # FIXME: prefix「0」が無視されてしまう問題をformat関数を使って解決せよ
     # @q = User.ransack(params[:q])
-    # @user = User.find_by(tel_extention).format('%0d', "#{@user.tel_extention}")
-    @user.update!(user_params)
-    redirect_to users_url, notice: "ユーザ「#{@user.name}」を更新しました。"
+    # @user = User.find_by(tel_extention).format('%0d', "#{@user.tel_extention}"
+    if @user.update(user_params)
+      redirect_to users_url, notice: "ユーザ「#{@user.name}」を更新しました。"
+    else
+      render :new
+    end
   end
 
   def destroy
     @user.destroy
     redirect_to users_url, notice: "ユーザ「#{@user.name}」を削除しました。"
+  end
+
+  def import
+    @users.import(params[:file])
+    redirect_to users_url, notice: "CSV取り込み完了"
   end
 
   private
@@ -53,8 +61,8 @@ class UsersController < ApplicationController
   end
 
   def set_ransack
-    # FIXME: あとで「ふりがな」カラムを追加したらこれもソートに含めるよう修正
-    @q = User.order(location_name: :asc, dept1: :asc, dept2: :asc, dept3: :asc, name_kana: :asc, name: :asc ).ransack(params[:q])
+    # FIXME: カラム名が見えているので仮想テーブル名を見せたい
+    @q = User.sort_by_name.ransack(params[:q])
     @users = @q.result(distinct: true).page(params[:page])
   end
 end

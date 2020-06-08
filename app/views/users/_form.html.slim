@@ -7,6 +7,7 @@
   .form-group
     = f.label :emproyee_id
     = f.text_field :emproyee_id, class: 'form-control', id: 'emproyee_id_name'
+    / = f.collection_select :location_name_cont, User.select(:location_name).distinct.order(location_name: "ASC"), :location_name, :location_name, {prompt: "勤務地"}, include_blank: true, class: 'form-control'
   .form-group
     = f.label :name
     = f.text_field :name, class: 'form-control', id: 'user_name'
@@ -16,7 +17,7 @@
   .form-group
     = f.label :image
     br
-    = image_tag @user.image.variant(resize_to_fit: [140,200], autorot: true, saver: { strip: true, quality: 60 }) if @user.image.attached?
+    = image_tag @user.image.variant(resize_to_fit: [140,200], autorot: true, saver: { strip: true, quality: 60 }), class: 'rounded-circle'  if @user.image.attached?
     = f.file_field :image, class: 'form-control'
   .form-group
     = f.label :location_name
@@ -31,16 +32,16 @@
     = f.label :dept3
     = f.text_field :dept3, class: 'form-control', id: 'dept3_name'
   .form-group
-    = f.label '役職'
+    = f.label :position_name
     = f.text_field :position_name, class: 'form-control', id: 'position_name'
   .form-group
-    = f.label '内線'
+    = f.label :tel_extention
     = f.text_field :tel_extention, class: 'form-control', id: 'user_tel_extention'
   .form-group
-    = f.label '外線'
+    = f.label :tel_outside
     = f.text_field :tel_outside, class: 'form-control', id: 'user_tel_outside'
   .form-group
-    = f.label '携帯'
+    = f.label :tel_mobile
     = f.text_field :tel_mobile, class: 'form-control', id: 'user_tel_mobile'
   .form-group
     = f.label :email

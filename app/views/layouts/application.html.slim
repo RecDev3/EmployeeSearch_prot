@@ -12,24 +12,20 @@ html
 
   body
     .app-title.navbar.navbar-expand-md.navbar-light.bg-light.border-bottom class='sticky-top'
-
-      .navbar-brand
-        = link_to users_path do
-          = image_tag 'COMPANY_LOGO.png', alt: 'ASearch', width: '150px', height: '35px'
-        .h6.text-center.border-top 従業員検索システム
-      = search_form_for @q, class: 'ml-1' do |f|
-        .form-group.row
-          ul
-          .col-xs-2
-            = f.search_field :name_or_name_kana_or_email_or_dept1_or_dept2_or_dept3_or_location_name_or_position_name_cont_any, class: 'form-control', :placeholder => 'キーワード'
-          .col-xs-2
-            = f.collection_select :location_name_cont, User.select(:location_name).distinct.order(location_name: "ASC"), :location_name, :location_name, {prompt: "勤務地"}, include_blank: true, class: 'form-control'
-          .col-xs-2
-            = f.collection_select :dept1_cont, User.select(:dept1).distinct.order(:dept1), :dept1, :dept1, {prompt: "部門"}, include_blank: true, class: 'form-control'
-          .col-xs-2
-            = button_tag type: 'submit', class: 'fas fa-2x fa-search'
-              fa-lg.fa-fw
-
+        .navbar-brand
+          = link_to users_path do
+            = image_tag 'COMPANY_LOGO.png', alt: 'ASearch', width: '150px', height: '35px'
+          .h6.text-center 従業員検索システム
+        = search_form_for @q, class: 'ml-2' do |f|
+          .form-group.row
+            .col-xs-3
+              = f.collection_select :location_name_cont, User.select(:location_name).distinct.order(location_name: "ASC"), :location_name, :location_name, {prompt: "勤務地を選択"}, include_blank: true, class: 'form-control'
+            .col-xs-3
+              = f.collection_select :dept1_cont, User.select(:dept1).distinct.order(:dept1), :dept1, :dept1, {prompt: "部門を選択"}, include_blank: true, class: 'form-control'
+            .col-xs-3
+              = f.search_field :name_or_name_kana_or_email_or_dept1_or_dept2_or_dept3_or_location_name_or_position_name_cont_any, class: 'form-control', :placeholder => 'キーワードで検索'
+            .col-xs-3
+              = f.submit class: 'btn btn-outline-primary'
 
     .container
       - if flash.notice.present?
