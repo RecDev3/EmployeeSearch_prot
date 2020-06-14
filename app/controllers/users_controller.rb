@@ -30,9 +30,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    # FIXME: prefix「0」が無視されてしまう問題をformat関数を使って解決せよ
-    # @q = User.ransack(params[:q])
-    # @user = User.find_by(tel_extention).format('%0d', "#{@user.tel_extention}"
     if @user.update(user_params)
       redirect_to users_url, notice: "ユーザ「#{@user.name}」を更新しました。"
     else
@@ -61,8 +58,7 @@ class UsersController < ApplicationController
   end
 
   def set_ransack
-    # FIXME: カラム名が見えているので仮想テーブル名を見せたい
     @q = User.sort_by_name.ransack(params[:q])
-    @users = @q.result(distinct: true).page(params[:page])
+    @users = @q.result(distinct: true).page(params[:page]).includes(image_attachment:[:blob])
   end
 end
