@@ -43,8 +43,12 @@ class UsersController < ApplicationController
   end
 
   def import
-    @users.import(params[:file])
-    redirect_to users_url, notice: "CSV取り込み完了"
+    if params[:file].nil?
+      redirect_to users_url, alert: "CSVが添付されていません"
+    else
+      @users.import(params[:file])
+      redirect_to users_url, notice: "CSV取り込み完了"
+    end
   end
 
   private
@@ -61,4 +65,5 @@ class UsersController < ApplicationController
     @q = User.sort_by_name.ransack(params[:q])
     @users = @q.result(distinct: true).page(params[:page]).includes(image_attachment:[:blob])
   end
+
 end

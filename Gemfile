@@ -43,6 +43,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'meta_request'
   gem 'bullet'
 end
@@ -66,7 +67,6 @@ gem 'valid_email2'
 gem 'font-awesome-sass', '~> 5.13.0'
 gem 'addressable'
 
-# FIXME: あとでDevelopmentに移す
 gem 'faker'
 gem 'gimei'
 gem 'rake-notes'

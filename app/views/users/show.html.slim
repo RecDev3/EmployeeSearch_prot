@@ -6,7 +6,7 @@ table.table.table-hover.table-sm
   tbody
     tr
       th= User.human_attribute_name(:emproyee_id)
-      td= @user.emproyee_id
+      td= sprintf("%05d", @user.emproyee_id)
     tr
       th= User.human_attribute_name(:name)
       td= @user.name

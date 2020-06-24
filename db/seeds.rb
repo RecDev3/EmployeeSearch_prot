@@ -7,13 +7,8 @@ require 'addressable/uri'
 
 Faker::Config.locale = 'ja'
 
-20.times do
+100.times do
   gimei = Gimei.new
-  # FIXME Fakerで遊んだあと
-  # uri = Addressable::URI.parse(Faker::Avatar.image(slug = nil, size = '100x100', format = 'png'))
-  # image = uri.normalize
-  # FIXME ローカルにおいた画像をデフォルトにする
-  # image = File.open(File.join(Rails.root, "emproyee-image.png"))
   emproyee_id = Faker::Number.number(digits: 5)
   name = gimei.name.kanji
   name_kana = gimei.name.hiragana
@@ -26,12 +21,10 @@ Faker::Config.locale = 'ja'
   # location_name_kana =
   address_name = Faker::Address.full_address
   # address_name_kana =
-  zip_number = Faker::Address.zip_code
-  tel_outside = Faker::PhoneNumber.phone_number_with_country_code
-  tel_extention = Faker::PhoneNumber.extension
+  tel_extention = rand(00001..99999)
+  tel_outside = Faker::PhoneNumber.phone_number_with_country_code.gsub(/-/, '')
   tel_mobile = Faker::PhoneNumber.cell_phone.gsub(/-/, '')
   User.create!(
-               # image: image,
                emproyee_id: emproyee_id,
                name: name,
                name_kana: name_kana,
@@ -42,9 +35,8 @@ Faker::Config.locale = 'ja'
                position_name: position_name,
                location_name: location_name,
                address_name: address_name,
-               zip_number: zip_number,
-               tel_outside: tel_outside,
                tel_extention: tel_extention,
+               tel_outside: tel_outside,
                tel_mobile: tel_mobile
   )
 end

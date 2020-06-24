@@ -7,13 +7,12 @@
   .form-group
     = f.label :emproyee_id
     = f.text_field :emproyee_id, class: 'form-control', id: 'emproyee_id_name'
-    / = f.collection_select :location_name_cont, User.select(:location_name).distinct.order(location_name: "ASC"), :location_name, :location_name, {prompt: "勤務地"}, include_blank: true, class: 'form-control'
   .form-group
     = f.label :name
-    = f.text_field :name, class: 'form-control', id: 'user_name'
+    = f.text_field :name, class: 'form-control', id: 'name_name'
   .form-group
     = f.label :name_kana
-    = f.text_field :name_kana, class: 'form-control', id: 'user_name_kana'
+    = f.text_field :name_kana, class: 'form-control', id: 'name_kana_name'
   .form-group
     = f.label :image
     br
@@ -36,14 +35,14 @@
     = f.text_field :position_name, class: 'form-control', id: 'position_name'
   .form-group
     = f.label :tel_extention
-    = f.text_field :tel_extention, class: 'form-control', id: 'user_tel_extention'
+    = f.text_field :tel_extention, class: 'form-control', id: 'tel_extention_name'
   .form-group
     = f.label :tel_outside
-    = f.text_field :tel_outside, class: 'form-control', id: 'user_tel_outside'
+    = f.text_field :tel_outside, class: 'form-control', id: 'tel_outside_name'
   .form-group
     = f.label :tel_mobile
-    = f.text_field :tel_mobile, class: 'form-control', id: 'user_tel_mobile'
+    = f.text_field :tel_mobile, class: 'form-control', id: 'tel_mobile_name'
   .form-group
     = f.label :email
-    = f.text_field :email, class: 'form-control', id: 'user_email'
+    = f.text_field :email, class: 'form-control', id: 'email_name'
   = f.submit nil, class: 'btn btn-primary'

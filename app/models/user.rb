@@ -1,31 +1,38 @@
 class User < ApplicationRecord
   has_one_attached :image
+
+  HIRAGANA_REGEXP = /\A[\p{hiragana}[[:blank:]]\u{30fc}]+\z/
+
   validates :name,
             presence: true
+  validates :name_kana,
+            presence: false,
+            length: { maximum: 255 },
+            format: { with: HIRAGANA_REGEXP, message: "は、ひらがなで入力してください",allow_blank: true }
   validates :emproyee_id,
             presence: true,
             uniqueness: true,
-            length: { is: 5 }
-            # numericality: { only_integer: true },
-            # format: { with: /\A[0-9\_]*\z/ }
-            # sprintf: { '%05d', 10 }
+            length: { is: 5 },
+            format: { with: /\A[0-9\_]*\z/ }
   validates :email,
+            length: { maximum: 254 },
             "valid_email_2/email": true
-            # uniqueness: { case_sensitive: false }
   validates :tel_extention,
-            length: { maximum: 5 }
-            # numericality: { only_integer: true }
+            length: { is: 5 }
+            # format: { with: /\A[0-9\_]*\z/ }
   validates :tel_outside,
-            length: { maximum: 10 },
-            numericality: { only_integer: true }
+            length: {maximum: 20 }
+            # format: { with: /\A[0-9\_]*\z/ }
+            # numericality: { only_integer: true, allow_blank: true }
   validates :tel_mobile,
-            length: { maximum: 11 }
-            # numericality: { only_integer: true }, format: {with: /\A\d{11}\z/}
+            length: { maximum: 20 },
+            format: { with: /\A[0-9\_]*\z/ }
+            # numericality: { only_integer: true, allow_blank: true }
   scope :sort_by_name, -> { order(:name_kana, :name) }
 
   # CSV export
   def self.csv_attributes
-    ["emproyee_id", "name", "name_kana", "zip_number", "address_name", "address_name_kana", "location_name", "location_name_kana", "dept1", "dept2", "dept3", "position_name", "tel_extention", "tel_outside", "tel_mobile", "created_at", "updated_at"]
+    ["emproyee_id", "name", "name_kana", "address_name", "address_name_kana", "location_name", "location_name_kana", "dept1", "dept2", "dept3", "position_name", "email", "tel_extention", "tel_outside", "tel_mobile", "created_at", "updated_at"]
   end
 
   def self.generate_csv

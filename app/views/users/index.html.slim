@@ -28,13 +28,13 @@ table.table.table-hover.table-sm.table-responsive-sm
           td= user.tel_extention
           td
             = link_to '', edit_user_path(user),  class: 'fa fa-edit mr-3 fa-lg fa-border'
-            = link_to '', user, method: :delete, data: { confirm: "ユーザ「#{user.name}」を削除します。よろしいですか？" }, class: 'fa fa-trash trash_red fa-lg fa-border'
+            = link_to '', user, method: :delete, data: { confirm: "ユーザ「#{user.name}」を削除します。よろしいですか？" }, class: 'fa fa-trash fa-lg fa-border'
 
 .mb-3
   = paginate @users
   = page_entries_info @users
 
-= link_to 'CSV出力', users_path(format: :csv), class: 'btn btn-primary mb-3'
+= link_to "CSV出力", users_path(format: :csv), class: 'btn btn-primary mb-3'
 = form_tag import_users_path, multipart: true, class: 'mb-3' do
   = file_field_tag :file
-  = submit_tag 'CSV取り込み', class: 'btn btn-primary'
+  = submit_tag "CSV取り込み", class: 'btn btn-primary'
