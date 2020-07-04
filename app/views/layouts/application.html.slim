@@ -15,8 +15,8 @@ html
       .container
         .navbar-brand
           = link_to users_path do
-            = image_tag 'COMPANY_LOGO.png', alt: 'ASearch', width: '150px', height: '35px'
-          .h6.text-center 従業員検索システム
+            = image_tag 'COMPANY_LOGO.png', alt: 'ASearch', width: '190px', height: '80px'
+          / .h6.text-center 従業員検索システム
         = search_form_for @q, class: 'ml-2' do |f|
           .form-group.row
             .col-xs-3

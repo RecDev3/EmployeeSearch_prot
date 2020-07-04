@@ -3,31 +3,37 @@ class User < ApplicationRecord
 
   HIRAGANA_REGEXP = /\A[\p{hiragana}[[:blank:]]\u{30fc}]+\z/
 
-  validates :name,
-            presence: true
-  validates :name_kana,
-            presence: false,
-            length: { maximum: 255 },
-            format: { with: HIRAGANA_REGEXP, message: "は、ひらがなで入力してください",allow_blank: true }
   validates :emproyee_id,
             presence: true,
             uniqueness: true,
             length: { is: 5 },
-            format: { with: /\A[0-9\_]*\z/ }
+            format: { with: /\A[0-9\_]*\z/, message: "は、半角数字のみが使用できます" }
+
+  validates :name,
+            presence: true,
+            length: { maximum: 60 }
+
+  validates :name_kana,
+            presence: false,
+            length: { maximum: 255 },
+            format: { with: HIRAGANA_REGEXP, message: "は、ひらがなのみが使用できます", allow_blank: true }
+
   validates :email,
             length: { maximum: 254 },
+            allow_nil: true,
             "valid_email_2/email": true
+
   validates :tel_extention,
-            length: { is: 5 }
-            # format: { with: /\A[0-9\_]*\z/ }
+            length: { is: 5 },
+            format: { with: /\A[0-9\_]*\z/, message: "は、半角数字のみが使用できます" }
+
   validates :tel_outside,
-            length: {maximum: 20 }
-            # format: { with: /\A[0-9\_]*\z/ }
-            # numericality: { only_integer: true, allow_blank: true }
+            length: { maximum: 20 }
+
   validates :tel_mobile,
             length: { maximum: 20 },
             format: { with: /\A[0-9\_]*\z/ }
-            # numericality: { only_integer: true, allow_blank: true }
+
   scope :sort_by_name, -> { order(:name_kana, :name) }
 
   # CSV export

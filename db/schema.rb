@@ -10,20 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_14_140041) do
+ActiveRecord::Schema.define(version: 2020_07_01_132948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "accounts", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", null: false
-    t.string "password_digest", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.boolean "admin", default: false, null: false
-    t.index ["email"], name: "index_accounts_on_email", unique: true
-  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -49,7 +39,6 @@ ActiveRecord::Schema.define(version: 2020_06_14_140041) do
   create_table "users", force: :cascade do |t|
     t.string "emproyee_id", limit: 5, null: false
     t.string "name", null: false
-    t.string "name_kana"
     t.string "email"
     t.string "dept1"
     t.string "dept2"
@@ -64,6 +53,7 @@ ActiveRecord::Schema.define(version: 2020_06_14_140041) do
     t.string "tel_mobile", limit: 15
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name_kana"
     t.index ["name", "name_kana"], name: "index_users_on_name_and_name_kana"
   end
 
