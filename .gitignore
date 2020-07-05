@@ -29,3 +29,11 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+.DS_Store
+.idea
+/rails6-compose
+/test
+/log
+/tmp
+/storage
