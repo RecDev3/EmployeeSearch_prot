@@ -21,6 +21,7 @@ ja:
         dept3: チーム
         position_name: 役職
         contact_info: 連絡先
+        admin_control: 編集/削除
         tel_extention: 内線
         tel_outside: 外線
         tel_mobile: 携帯

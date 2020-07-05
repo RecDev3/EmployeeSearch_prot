@@ -1,5 +1,5 @@
 
-= link_to '従業員登録', new_user_path, class: 'btn btn-primary mb-3'
+= link_to '新規登録', new_user_path, class: 'btn btn-primary mb-3'
 
 .mb-4
   = paginate @users
@@ -15,7 +15,7 @@ table.table.table-hover.table-sm.table-responsive-sm
       th= User.human_attribute_name(:dept3)
       th= User.human_attribute_name(:position_name)
       th= User.human_attribute_name(:contact_info)
-      th= User.human_attribute_name('管理')
+      th= User.human_attribute_name(:admin_control)
     tbody
       - @users.each do |user|
         tr
