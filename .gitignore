@@ -22,6 +22,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials.yml.enc
 
 /public/packs
 /public/packs-test
@@ -30,10 +31,13 @@
 yarn-debug.log*
 .yarn-integrity
 
+# General
 .DS_Store
+
+# InteliJ
 /.idea
+
+# etc
 /rails6-compose
 /test
-/log
-/tmp
-/storage
+
