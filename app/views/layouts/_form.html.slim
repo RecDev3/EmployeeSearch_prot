@@ -1,0 +1,81 @@
+- if user.errors.present?
+  ul#error_explanation
+  div class="alert alert-danger"
+    p.text-center.font-weight-bolder 入力内容にエラーがありました
+    - @user.errors.full_messages.each do |message|
+      li = message
+
+= form_with model: user, local: true do |f|
+  table.table.table-sm
+    tbody
+      .form-group
+        tr
+          th= f.label :emproyee_id
+          td= f.text_field :emproyee_id, class: 'form-control', id: 'emproyee_id_name', :placeholder => '半角数字（例：98765）'
+          td= f.error_message_for(:emproyee_id)
+      .form-group
+        tr
+          th= f.label :name
+          td= f.text_field :name, class: 'form-control', id: 'name_name', :placeholder => '姓名（例：鈴木 一郎）'
+          td= f.error_message_for(:name)
+      .form-group
+        tr
+          th= f.label :name_kana
+          td= f.text_field :name_kana, class: 'form-control', id: 'name_kana_name', :placeholder => 'ふりがな（例：すずき いちろう）'
+          td= f.error_message_for(:name_kana)
+      .form-group
+        tr
+          th= f.label :image
+          - if @user.image.attached?
+            td= image_tag @user.image.variant(resize_to_fit: [250,250], autorot: true, saver: { strip: true, quality: 60 }), class: 'rounded-circle'
+          - else
+            td= image_tag 'Employee.png', size:"250x250", class: 'rounded-circle'
+        tr
+          th=
+          td= f.file_field :image, class: 'form-control'
+      .form-group
+        tr
+          th= f.label :location_name
+          td= f.select :location_name, grouped_options_for_select( LocationName::SELECT_OPTIONS, selected: @user.location_name ), { include_blank: '勤務地を選択' }, {class: 'form-control'}
+          td= f.error_message_for(:location_name)
+      .form-group
+        tr
+          th= f.label :dept1
+          td= f.text_field :dept1, class: 'form-control', id: 'dept1_name', :placeholder => '（例：経営管理本部）'
+          td= f.error_message_for(:dept1)
+      .form-group
+        tr
+          th= f.label :dept2
+          td= f.text_field :dept2, class: 'form-control', id: 'dept2_name', :placeholder => '（例：経理部）'
+          td= f.error_message_for(:dept2)
+      .form-group
+        tr
+          th= f.label :dept3
+          td= f.text_field :dept3, class: 'form-control', id: 'dept3_name', :placeholder => '（例：連結チーム）'
+          td= f.error_message_for(:dept3)
+      .form-group
+        tr
+          th= f.label :position_name
+          td= f.select :position_name, options_for_select( PositionName::SELECT_OPTIONS, selected: @user.position_name ), {include_blank: '役職を選択'}, {class: 'form-control'}
+          td= f.error_message_for(:position_name)
+      .form-group
+        tr
+          th= f.label :tel_extention
+          td= f.text_field :tel_extention, class: 'form-control', id: 'tel_extention_name', :placeholder => '半角数字５桁（例：12345）'
+          td= f.error_message_for(:tel_extention)
+      .form-group
+        tr
+          th= f.label :tel_outside
+          td= f.text_field :tel_outside, class: 'form-control', id: 'tel_outside_name', :placeholder => '半角数字（例：0312345678）'
+          td= f.error_message_for(:tel_outside)
+      .form-group
+        tr
+          th= f.label :tel_mobile
+          td= f.text_field :tel_mobile, class: 'form-control', id: 'tel_mobile_name', :placeholder => '半角数字（例：09012345678）'
+          td= f.error_message_for(:tel_mobile)
+      .form-group
+        tr
+          th= f.label :email
+          td= f.text_field :email, class: 'form-control', id: 'email_name', :placeholder => '半角数字記号（例：sample@example.com）'
+          td= f.error_message_for(:email)
+  = f.submit nil, class: 'btn btn-primary'

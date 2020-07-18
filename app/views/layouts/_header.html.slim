@@ -1,0 +1,22 @@
+body
+  .header.navbar.navbar-expand-md.mb-3.navbar-light.bg-light.border-bottom.shadow-sm class='sticky-top'
+    .mdl-layout__header.w-100
+      .container.mdl-layout__header-row
+        .header__title
+          = link_to users_path do
+            = image_tag 'COMPANY_LOGO.png', alt: 'EmployeeSearch', width: '160px', height: '70px'
+        .header-search-box
+          .header-search-form
+            .header-search-form__input-area
+              = search_form_for @q, class: 'ml-2' do |f|
+                .form-inline-group.row
+                  .col-xs-3
+                    = f.collection_select :location_name_cont, User.select(:location_name).distinct.order(location_name: "ASC"), :location_name, :location_name, {include_blank: "勤務地を選択"}, {class: 'form-control'}
+                  .col-xs-3
+                    = f.collection_select :dept1_cont, User.select(:dept1).distinct.order(:dept1), :dept1, :dept1, {include_blank: '部門を選択'}, {class: 'form-control'}
+                  .col-xs-3
+                    = f.search_field :emproyee_id_or_name_or_name_kana_or_email_or_dept1_or_dept2_or_dept3_or_location_name_or_location_name_kana_or_position_name_or_tel_extention_or_tel_outside_or_tel_mobile_cont_any, class: 'form-control', :placeholder => 'キーワードで検索'
+                  .col-xs-3
+                    = f.submit class: 'btn btn-outline-primary'
+        .mdl-navigatio.justify-content-sm-end
+          .mdl-navigation--header

@@ -5,12 +5,13 @@
   = paginate @users
   = page_entries_info @users
 
-table.table.table-hover.table-sm.table-responsive-sm
+table.table.table-hover.table-xs.table-responsive-xs
   thead.thead-default
     tr
       th= User.human_attribute_name(:image)
       th= User.human_attribute_name(:name)
       th= User.human_attribute_name(:location_name)
+      th= User.human_attribute_name(:dept1)
       th= User.human_attribute_name(:dept2)
       th= User.human_attribute_name(:dept3)
       th= User.human_attribute_name(:position_name)
@@ -19,22 +20,37 @@ table.table.table-hover.table-sm.table-responsive-sm
     tbody
       - @users.each do |user|
         tr
-          td= link_to (image_tag user.image.variant(resize_to_fit: [50,50], autorot: true, saver: { strip: true, quality: 60 } ), class: 'rounded-circle'), user_path(user) if user.image.attached?
-          td= link_to user.name, user_path(user)
+          - if user.image.attached?
+            td= link_to (image_tag user.image.variant(resize_to_fit: [50,50], autorot: true, saver: { strip: true, quality: 60 } ), class: 'rounded-circle'), user_path(user)
+            td= link_to user.name, user_path(user)
+          - else
+            td= link_to (image_tag 'Employee.png', size:"50x50", class: 'rounded-circle'), user_path(user)
+            td= link_to user.name, user_path(user)
           td= user.location_name
+          td= user.dept1
           td= user.dept2
           td= user.dept3
           td= user.position_name
-          td= user.tel_extention
           td
-            = link_to '', edit_user_path(user),  class: 'fa fa-edit mr-3 fa-lg fa-border'
-            = link_to '', user, method: :delete, data: { confirm: "ユーザ「#{user.name}」を削除します。よろしいですか？" }, class: 'fa fa-trash fa-lg fa-border'
+            = icon 'fa', 'phone', + user.tel_extention
+            br
+            = icon 'fa', 'building', + user.tel_outside
+            br
+            = icon 'fa', 'mobile-alt', + user.tel_mobile
+          td
+            = link_to '', edit_user_path(user),  class: 'far fa-edit mr-2 fa-lg'
+            = link_to '', user, method: :delete, data: { confirm: "ユーザ「#{user.name}」を削除します。よろしいですか？" }, class: 'far fa-trash-alt fa-lg'
 
 .mb-3
   = paginate @users
   = page_entries_info @users
 
-= link_to "CSV出力", users_path(format: :csv), class: 'btn btn-primary mb-3'
+
 = form_tag import_users_path, multipart: true, class: 'mb-3' do
   = file_field_tag :file
-  = submit_tag "CSV取り込み", class: 'btn btn-primary'
+  = submit_tag "CSVファイル取り込み", data: { confirm: 'CSVファイルを取り込みます。よろしいですか？'}, class: 'btn btn-primary'
+
+= link_to "CSVファイル出力", users_path(format: :csv), class: 'btn btn-primary mb-3'
+
+= form_tag reset_users_path, multipart: true, class: 'mb-3' do
+  = submit_tag "データリセット", data: { confirm: '全てのデータがリセットされます。よろしいですか？'}, class: 'btn btn-danger mb-3'

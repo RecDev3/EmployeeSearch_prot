@@ -1,7 +1,7 @@
-h4 ユーザの詳細
+h4 ユーザーの詳細
 
 .nav.justify-content-end
-  = link_to '一覧', users_path, class: 'nav-link'
+  = link_to '一覧', users_path, class: 'btn btn-outline-secondary'
 table.table.table-hover.table-sm
   tbody
     tr
@@ -15,7 +15,13 @@ table.table.table-hover.table-sm
       td= @user.name_kana
     tr
       th= User.human_attribute_name(:image)
-      td= image_tag @user.image.variant(resize_to_fit: [150,150], autorot: true, saver: { strip: true, quality: 60 }), class: 'rounded-circle' if @user.image.attached?
+      - if @user.image.attached?
+        td= image_tag @user.image.variant(resize_to_fit: [250,250], autorot: true, saver: { strip: true, quality: 60 }), class: 'rounded-circle'
+      - else
+        td= image_tag 'Employee.png', size:"250x250", class: 'rounded-circle'
+    tr
+      th= User.human_attribute_name(:location_name)
+      td= @user.location_name
     tr
       th= User.human_attribute_name(:dept1)
       td= @user.dept1
@@ -42,10 +48,10 @@ table.table.table-hover.table-sm
       td= @user.email
     tr
       th= User.human_attribute_name(:created_at)
-      td= @user.created_at
+      td= simple_time(@user.created_at)
     tr
       th= User.human_attribute_name(:updated_at)
-      td= @user.updated_at
+      td= simple_time(@user.updated_at)
 
-= link_to '', edit_user_path, class: 'fa fa-edit mr-2 fa-2x fa-border'
-= link_to '', @user, method: :delete, data: { confirm: "ユーザ「#{@user.name}」を削除します。よろしいですか？" }, class: 'fa fa-trash fa-2x fa-border'
+= link_to '', edit_user_path, class: 'far fa-edit mr-3 fa-2x'
+= link_to '', @user, method: :delete, data: { confirm: "ユーザ「#{@user.name}」を削除します。よろしいですか？" }, class: 'far fa-trash-alt fa-2x'

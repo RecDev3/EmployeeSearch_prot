@@ -92,6 +92,11 @@ GEM
     colored (1.2)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
+    data-confirm-modal (1.6.3)
+      railties (>= 3.0)
+    debase (0.2.4.1)
+      debase-ruby_core_source (>= 0.10.2)
+    debase-ruby_core_source (0.10.9)
     debug_inspector (0.0.3)
     erubi (1.9.0)
     execjs (2.7.0)
@@ -208,6 +213,8 @@ GEM
     regexp_parser (1.7.0)
     romaji (0.2.4)
       rake (>= 0.8.0)
+    ruby-debug-ide (0.7.2)
+      rake (>= 0.8.1)
     ruby-vips (2.0.17)
       ffi (~> 1.9)
     ruby_dep (1.5.0)
@@ -289,6 +296,8 @@ DEPENDENCIES
   bullet
   byebug
   capybara (>= 2.15)
+  data-confirm-modal
+  debase
   faker
   font-awesome-sass (~> 5.13.0)
   gimei
@@ -304,6 +313,7 @@ DEPENDENCIES
   rails-i18n
   rake-notes
   ransack
+  ruby-debug-ide
   sass-rails (>= 6)
   selenium-webdriver
   slim-rails

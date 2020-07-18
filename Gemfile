@@ -70,3 +70,8 @@ gem 'addressable'
 gem 'faker'
 gem 'gimei'
 gem 'rake-notes'
+
+gem "ruby-debug-ide"
+gem "debase"
+
+gem 'data-confirm-modal'

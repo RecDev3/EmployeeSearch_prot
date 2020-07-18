@@ -2,7 +2,7 @@ doctype html
 html
   head
     title
-      | ASearch
+      | EmployeeSearch
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -11,27 +11,5 @@ html
 
     meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
 
-  body
-    .app-title.navbar.navbar-expand-md.navbar-light.bg-light.border-bottom class='sticky-top'
-      .container
-        .navbar-brand
-          = link_to users_path do
-            = image_tag 'COMPANY_LOGO.png', alt: 'ASearch', width: '190px', height: '80px'
-          / .h6.text-center 従業員検索システム
-        = search_form_for @q, class: 'ml-2' do |f|
-          .form-group.row
-            .col-xs-3
-              = f.collection_select :location_name_cont, User.select(:location_name).distinct.order(location_name: "ASC"), :location_name, :location_name, {include_blank: "勤務地を選択"}, {class: 'form-control'}
-            .col-xs-3
-              = f.collection_select :dept1_cont, User.select(:dept1).distinct.order(:dept1), :dept1, :dept1, {include_blank: '部門を選択'}, {class: 'form-control'}
-            .col-xs-3
-              = f.search_field :name_or_name_kana_or_email_or_dept1_or_dept2_or_dept3_or_location_name_or_position_name_cont_any, class: 'form-control', :placeholder => 'キーワードで検索'
-            .col-xs-3
-              = f.submit class: 'btn btn-outline-primary'
-
-    .container
-      - if flash.notice.present?
-        .alert.alert-success= flash.notice
-      - if flash.alert.present?
-        .alert.alert-danger= flash.alert
-      = yield
+    = render 'layouts/header'
+    = render 'layouts/footer'

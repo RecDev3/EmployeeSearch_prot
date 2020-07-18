@@ -1,0 +1,12 @@
+.container
+  - if flash.notice.present?
+    .alert.alert-success= flash.notice
+  - if flash.alert.present?
+    .alert.alert-danger= flash.alert
+  = yield
+.footer.navbar.navbar-expand-md.navbar-light.mt-5.bg-light.border-top
+  .mdl-layout__header.mb-5.w-100
+    .container.mdl-layout__header-row
+      .footer__title
+        = link_to users_path do
+          = image_tag 'COMPANY_LOGO.png', alt: 'EmployeeSearch', width: '160px', height: '70px'

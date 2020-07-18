@@ -3,9 +3,11 @@ class UsersController < ApplicationController
   before_action :set_ransack
 
   def index
+    @users_all = User.all
+
     respond_to do |format|
       format.html
-      format.csv { send_data @users.generate_csv, filename: "users-#{Time.zone.now.strftime('%Y%m%d%S')}.csv" }
+      format.csv { send_data @users_all.generate_csv, filename: "users-#{Time.zone.now.strftime('%Y%m%d%S')}.csv" }
     end
   end
 
@@ -20,7 +22,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to users_url, notice: "ユーザ「#{@user.name}」を登録しました。"
+      redirect_to users_url, notice: "ユーザ「#{@user.name}」を登録しました"
     else
       render :new
     end
@@ -31,15 +33,15 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to users_url, notice: "ユーザ「#{@user.name}」を更新しました。"
+      redirect_to users_url, notice: "ユーザ「#{@user.name}」を更新しました"
     else
-      render :new
+      render :edit
     end
   end
 
   def destroy
     @user.destroy
-    redirect_to users_url, notice: "ユーザ「#{@user.name}」を削除しました。"
+    redirect_to users_url, notice: "ユーザ「#{@user.name}」を削除しました"
   end
 
   def import
@@ -47,9 +49,48 @@ class UsersController < ApplicationController
       redirect_to users_url, alert: "CSVが添付されていません"
     else
       @users.import(params[:file])
-      redirect_to users_url, notice: "CSV取り込み完了"
+      if $import_errors.nil?
+        redirect_to users_url, notice: "CSV取り込みが完了しました"
+      else
+        str = <<~EOS.gsub(/,|:/, "<br>　-")
+          CSVインポート失敗<br>,
+          ★ヒント★：#{$import_errors}
+        EOS
+        flash.now[:alert] = str.html_safe
+        render :index
+      end
     end
   end
+
+  def reset
+    if User.any?
+      begin
+        ActiveRecord::Base.transaction do
+          User.destroy_all
+          logger.info("info：Userテーブル全データの削除完了")
+          # byebug
+        end
+      rescue => e
+        logger.error("------------------------------------")
+        logger.error("error: データリセットに失敗しました")
+        logger.error("------------------------------------")
+        logger.error e
+        logger.error("------------------------------------")
+        logger.error e.backtrace.join("\n")
+        logger.error("------------------------------------")
+        $reset_errors = e.record.errors.messages
+      end
+      redirect_to users_url, notice: "データリセットが完了しました"
+    else
+      str = <<~EOS.gsub(/,|:/, "<br>　-")
+          データリセットに失敗しました<br>,
+          ★ヒント★：#{$reset_errors}
+      EOS
+      flash.now[:alert] = str.html_safe
+      render :index
+    end
+  end
+
 
   private
 
