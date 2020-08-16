@@ -67,21 +67,26 @@ class User < ApplicationRecord
         CSV.foreach(file.path, headers: true) do |row|
           user = new
           user.attributes = row.to_hash.slice(*csv_attributes)
-          # bybug
           user.save!
         end
       end
     rescue => e
-      logger.error("------------------------------------")
-      logger.error("error: CSVファイル取り込みに失敗しました")
-      logger.error("------------------------------------")
-      logger.error e
-      logger.error("------------------------------------")
-      logger.error e.backtrace.join("\n")
-      logger.error("------------------------------------")
-      $import_errors = e.record.errors.messages
+      include ErrorUtility
+      $import_errors = e.message
     end
   end
+
+  def self.reset
+    begin
+      ActiveRecord::Base.transaction do
+        User.destroy_all
+      end
+    rescue => e
+      include ErrorUtility
+    end
+    logger.info("info：Userテーブル全データの削除完了")
+  end
+
 
   # ransack
   def self.ransackable_attributes(auth_object = nil)
@@ -92,4 +97,16 @@ class User < ApplicationRecord
     []
   end
 
+end
+
+
+module ErrorUtility
+  def log_and_notify(e)
+    Rails.logger.error("----------------------------------------------")
+    Rails.logger.error "ErrorClass: #{e.class}"
+    Rails.logger.error "ErrorMessage: #{e.message}"
+    Rails.logger.error("----------------------------------------------")
+    Rails.logger.error e.backtrace.join("\n")
+    Rails.logger.error("----------------------------------------------")
+  end
 end

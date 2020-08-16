@@ -52,41 +52,28 @@ class UsersController < ApplicationController
       if $import_errors.nil?
         redirect_to users_url, notice: "CSV取り込みが完了しました"
       else
-        str = <<~EOS.gsub(/,|:/, "<br>　-")
-          CSVインポート失敗<br>,
-          ★ヒント★：#{$import_errors}
+        str = <<~EOS
+          CSVインポート失敗,
+          - #{$import_errors}
         EOS
-        flash.now[:alert] = str.html_safe
-        render :index
+        flash[:alert] = str
+        redirect_to users_url
+        $import_errors = nil
       end
     end
   end
 
   def reset
     if User.any?
-      begin
-        ActiveRecord::Base.transaction do
-          User.destroy_all
-          logger.info("info：Userテーブル全データの削除完了")
-          # byebug
-        end
-      rescue => e
-        logger.error("------------------------------------")
-        logger.error("error: データリセットに失敗しました")
-        logger.error("------------------------------------")
-        logger.error e
-        logger.error("------------------------------------")
-        logger.error e.backtrace.join("\n")
-        logger.error("------------------------------------")
-        $reset_errors = e.record.errors.messages
+      User.reset
+      if User.exists?
+        flash.now[:alert] = "リセット失敗：システム管理者に確認してください"
+        render :index
+      else
+        redirect_to users_url, notice: "データリセットが完了しました"
       end
-      redirect_to users_url, notice: "データリセットが完了しました"
     else
-      str = <<~EOS.gsub(/,|:/, "<br>　-")
-          データリセットに失敗しました<br>,
-          ★ヒント★：#{$reset_errors}
-      EOS
-      flash.now[:alert] = str.html_safe
+      flash.now[:alert] = "リセットするデータがありません"
       render :index
     end
   end
